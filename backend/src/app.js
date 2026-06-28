@@ -14,6 +14,11 @@ const elasticityRoutes   = require('./routes/elasticity.routes');
 const whatsappRoutes     = require('./routes/whatsapp.routes');
 const debugRoutes        = require('./routes/debug.routes');
 const errorHandler       = require('./middleware/errorHandler.middleware');
+const { sequelize } = require('./models');
+
+sequelize.authenticate()
+  .then(() => console.log('Database connected'))
+  .catch(console.error);
 
 const app = express();
 
