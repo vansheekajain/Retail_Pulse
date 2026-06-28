@@ -4,12 +4,18 @@ const dbConfig = require('../config/db.config');
 const env    = process.env.NODE_ENV || 'development';
 const config = dbConfig[env];
 
-const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  config
-);
+let sequelize;
+
+if (config.url) {
+  sequelize = new Sequelize(config.url, config);
+} else {
+  sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
+}
 
 // ── Import models ─────────────────────────────────────
 const User           = require('./User')(sequelize);
